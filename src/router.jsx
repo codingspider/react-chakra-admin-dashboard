@@ -6,27 +6,43 @@ import Dashboard from "./components/admin/Dashboard";
 import Profile from "./components/admin/Profile";
 import Login from "./components/Login";
 import ProtectedRoute from "./ProtectedRoute";
+import Welcome from "./components/Welcome";
+import Forgot from "./components/Forgot";
+import ResetPassword from './components/ResetPassword';
 
 export const ROOT = '/';
 export const LOGIN = '/login';
-export const DASHBORD = '/dashboard';
-export const PROFILE = '/profile';
+export const FORGOT = '/forgot';
+export const RESET_PASSWORD = '/reset/password/:reset_token';
 
+export const ADMIN = '/admin';
+export const DASHBORD = 'dashboard';  // Note: No slash needed when nested
+export const PROFILE = 'profile';
 
 export const router = createBrowserRouter([
-  {
-    path: ROOT,
-    element: <MasterLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-        { index: true, element: <Dashboard /> },
-        { path: DASHBORD, element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
-        { path: PROFILE, element: <Profile /> },
-    ],
-  },
   {
     path: LOGIN,
     element: <Login />,
   },
+  {
+    path: ROOT,
+    element: <Welcome />,
+  },
+  {
+    path: FORGOT,
+    element: <Forgot />,
+  },
+  {
+    path: RESET_PASSWORD,
+    element: <ResetPassword />,
+  },
+  {
+    path: ADMIN,
+    element: <MasterLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: DASHBORD, element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
+      { path: PROFILE, element: <ProtectedRoute><Profile /></ProtectedRoute> },
+    ],
+  },
 ]);
-

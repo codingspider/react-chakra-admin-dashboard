@@ -5,8 +5,15 @@ import {
     InputGroup,
     InputLeftElement,
     Icon,
-    Avatar,
-    useColorMode
+    Avatar, AvatarBadge, AvatarGroup,Wrap,WrapItem,
+    useColorMode,
+    Button,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Center,
+    MenuDivider
   } from "@chakra-ui/react";
 
 import { FaMoon } from 'react-icons/fa';
@@ -49,15 +56,32 @@ import { FaSun } from 'react-icons/fa';
         </InputGroup>
         
         <Flex align="center">
-          <IconButton mr={3} icon={isDark ? <FaSun /> : <FaMoon />} isRound="true" onClick={toggleColorMode}></IconButton>
-          <Icon color="gray.500" as={FaBell} cursor="pointer" />
-          <Avatar
-            ml="4"
-            size="sm"
-            name="anubra266"
-            src="https://avatars.githubusercontent.com/u/30869823?v=4"
-            cursor="pointer"
-          />
+          <IconButton size='sm' mr={3} icon={isDark ? <FaSun /> : <FaMoon />} isRound="true" onClick={toggleColorMode}></IconButton>
+          <Icon  mr={3} color="gray.500" as={FaBell} cursor="pointer" />
+          <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Wrap>
+                    <WrapItem>
+                      <Avatar name='Dan Abrahmov' size='sm' bg='teal.500'  />
+                    </WrapItem>
+                  </Wrap>
+                </MenuButton>
+                <MenuList alignItems={'center'}>
+                  <Center>
+                    <p>Username</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <MenuItem>Your Servers</MenuItem>
+                  <MenuItem>Account Settings</MenuItem>
+                  <MenuItem>Logout</MenuItem>
+                </MenuList>
+              </Menu>
         </Flex>
       </Flex>
     );

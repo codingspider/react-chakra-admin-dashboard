@@ -17,6 +17,7 @@ import {FiMenu, FiSearch} from 'react-icons/fi';
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {Link as ChakraLink} from '@chakra-ui/react'
 import {DASHBORD, PROFILE} from "../router";
+import { CiLogout } from "react-icons/ci";
 
 const NavItem = ({
     icon,
@@ -60,6 +61,10 @@ const NavItem = ({
 
 const Sidebar = (props) => {
     const integrations = useDisclosure();
+
+    const logout = () => {
+        
+    }
 
     return (
         <Box
@@ -135,6 +140,7 @@ const Sidebar = (props) => {
 
                 <NavItem icon={AiFillGift}>Changelog</NavItem>
                 <NavItem icon={BsGearFill}>Settings</NavItem>
+                <NavItem onClick={logout} icon={CiLogout}>Logout</NavItem>
             </Flex>
         </Box>
     );
