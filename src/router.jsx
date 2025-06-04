@@ -9,11 +9,13 @@ import ProtectedRoute from "./ProtectedRoute";
 import Welcome from "./components/Welcome";
 import Forgot from "./components/Forgot";
 import ResetPassword from './components/ResetPassword';
+import Unauthorized from "./components/Unauthorized";
 
 export const ROOT = '/';
 export const LOGIN = '/login';
 export const FORGOT = '/forgot';
 export const RESET_PASSWORD = '/reset/password/:reset_token';
+export const UNAUTHORIZED = '/unauthorized';
 
 export const ADMIN = '/admin';
 export const DASHBORD = 'dashboard';  // Note: No slash needed when nested
@@ -29,6 +31,10 @@ export const router = createBrowserRouter([
     element: <Welcome />,
   },
   {
+    path: UNAUTHORIZED,
+    element: <Unauthorized />,
+  },
+  {
     path: FORGOT,
     element: <Forgot />,
   },
@@ -41,8 +47,8 @@ export const router = createBrowserRouter([
     element: <MasterLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: DASHBORD, element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
-      { path: PROFILE, element: <ProtectedRoute><Profile /></ProtectedRoute> },
+      { path: DASHBORD, element: <ProtectedRoute role="super_admin"><Dashboard /></ProtectedRoute> },
+      { path: PROFILE, element: <ProtectedRoute role="user"><Profile /></ProtectedRoute> },
     ],
   },
 ]);

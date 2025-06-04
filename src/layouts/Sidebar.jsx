@@ -18,6 +18,8 @@ import {Link as ReactRouterLink} from 'react-router-dom'
 import {Link as ChakraLink} from '@chakra-ui/react'
 import {DASHBORD, PROFILE} from "../router";
 import { CiLogout } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../services/authService';
 
 const NavItem = ({
     icon,
@@ -61,10 +63,11 @@ const NavItem = ({
 
 const Sidebar = (props) => {
     const integrations = useDisclosure();
+    const navigate = useNavigate();
 
-    const logout = () => {
-        
-    }
+    const handleLogout = async () => {
+    await logoutUser(navigate);
+    };
 
     return (
         <Box
@@ -140,7 +143,7 @@ const Sidebar = (props) => {
 
                 <NavItem icon={AiFillGift}>Changelog</NavItem>
                 <NavItem icon={BsGearFill}>Settings</NavItem>
-                <NavItem onClick={logout} icon={CiLogout}>Logout</NavItem>
+                <NavItem onClick={handleLogout} icon={CiLogout}>Logout</NavItem>
             </Flex>
         </Box>
     );

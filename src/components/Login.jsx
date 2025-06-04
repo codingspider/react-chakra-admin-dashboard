@@ -40,6 +40,7 @@ const Login = () => {
         try {
             const res = await loginUser(email, password);
             localStorage.setItem('auth_token', res.data.token);
+            localStorage.setItem('role', res.data.role);
             toast({
                 title: 'Login successful!',
                 status: 'success',

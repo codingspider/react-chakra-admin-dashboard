@@ -18,14 +18,20 @@ import {
 
 import { FaMoon } from 'react-icons/fa';
 import { FaSun } from 'react-icons/fa';
-
-  import { FiMenu, FiSearch } from "react-icons/fi";
-  import { FaBell } from "react-icons/fa";
+import { FiMenu, FiSearch } from "react-icons/fi";
+import { FaBell } from "react-icons/fa";
+import { LOGIN } from "../router";
+import { logoutUser } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
   
   const Header = ({ sidebar }) => {
-
+      const navigate = useNavigate();
       const { colorMode, toggleColorMode} = useColorMode();
       const isDark = colorMode === "dark";
+
+      const handleLogout = async () => {
+        await logoutUser(navigate);
+      };
 
     return (
       <Flex
@@ -79,7 +85,7 @@ import { FaSun } from 'react-icons/fa';
                   <MenuDivider />
                   <MenuItem>Your Servers</MenuItem>
                   <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
         </Flex>
