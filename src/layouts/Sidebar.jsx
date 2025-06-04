@@ -16,7 +16,7 @@ import {BsGearFill} from 'react-icons/bs';
 import {FiMenu, FiSearch} from 'react-icons/fi';
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {Link as ChakraLink} from '@chakra-ui/react'
-import {DASHBORD, PROFILE} from "../router";
+import {DASHBORD, MASTER_SETTING, PROFILE} from "../router";
 import { CiLogout } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authService';
@@ -108,11 +108,22 @@ const Sidebar = (props) => {
                 fontSize="md"
                 color="teal.600"
                 aria-label="Main Navigation">
+
+                {/* super admin routes  */}
                 <ChakraLink as={ReactRouterLink} to={DASHBORD}>
                     <NavItem icon={MdHome}>
                         Home
                     </NavItem>
                 </ChakraLink>
+                
+                <ChakraLink as={ReactRouterLink} to={MASTER_SETTING}>
+                    <NavItem icon={BsGearFill}>
+                        Master Setting
+                    </NavItem>
+                </ChakraLink>
+
+                {/* super admin routes  */}
+
                 <ChakraLink as={ReactRouterLink} to={PROFILE}>
                     <NavItem icon={FaRss}>
                         Profile

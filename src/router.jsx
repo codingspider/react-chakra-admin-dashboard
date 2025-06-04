@@ -10,6 +10,7 @@ import Welcome from "./components/Welcome";
 import Forgot from "./components/Forgot";
 import ResetPassword from './components/ResetPassword';
 import Unauthorized from "./components/Unauthorized";
+import MasterSetting from "./components/admin/MasterSetting";
 
 export const ROOT = '/';
 export const LOGIN = '/login';
@@ -20,6 +21,7 @@ export const UNAUTHORIZED = '/unauthorized';
 export const ADMIN = '/admin';
 export const DASHBORD = 'dashboard';  // Note: No slash needed when nested
 export const PROFILE = 'profile';
+export const MASTER_SETTING = 'master/setting';
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +50,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: DASHBORD, element: <ProtectedRoute role="super_admin"><Dashboard /></ProtectedRoute> },
+      { path: MASTER_SETTING, element: <ProtectedRoute role="super_admin"><MasterSetting /></ProtectedRoute> },
       { path: PROFILE, element: <ProtectedRoute role="user"><Profile /></ProtectedRoute> },
     ],
   },

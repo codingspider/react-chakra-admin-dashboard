@@ -13,8 +13,10 @@ import {
     MenuList,
     MenuItem,
     Center,
-    MenuDivider
+    MenuDivider,
+    Select
   } from "@chakra-ui/react";
+  import { useContext } from 'react';
 
 import { FaMoon } from 'react-icons/fa';
 import { FaSun } from 'react-icons/fa';
@@ -23,11 +25,14 @@ import { FaBell } from "react-icons/fa";
 import { LOGIN } from "../router";
 import { logoutUser } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
-  
+import { LanguageContext } from '../LanguageProvider';
+
   const Header = ({ sidebar }) => {
       const navigate = useNavigate();
       const { colorMode, toggleColorMode} = useColorMode();
       const isDark = colorMode === "dark";
+      const { lang, changeLanguage } = useContext(LanguageContext);
+      
 
       const handleLogout = async () => {
         await logoutUser(navigate);
@@ -62,10 +67,15 @@ import { useNavigate } from 'react-router-dom';
         </InputGroup>
         
         <Flex align="center">
+          <Select value={lang} mr={3}  onChange={(e) => changeLanguage(e.target.value)}>
+            <option value="en">English</option>
+            <option value="bn">বাংলা</option>
+          </Select>
           <IconButton size='sm' mr={3} icon={isDark ? <FaSun /> : <FaMoon />} isRound="true" onClick={toggleColorMode}></IconButton>
           <Icon  mr={3} color="gray.500" as={FaBell} cursor="pointer" />
           <Menu>
                 <MenuButton
+                mr={3}
                   as={Button}
                   rounded={'full'}
                   variant={'link'}
