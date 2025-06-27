@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { ADMIN, DASHBORD } from '../router';
+import { ADMIN, DASHBORD, STAFF, SUPER_ADMIN, USER } from '../router';
 import { loginUser } from '../services/authService';
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink } from '@chakra-ui/react'
@@ -29,9 +29,17 @@ const Login = () => {
 
     useEffect(() => {
         const storedToken = localStorage.getItem('auth_token');
-        if (storedToken) {
+        const role = localStorage.getItem('role');
+        if (storedToken && role === 'super_admin') {
+            navigate(`${SUPER_ADMIN}/${DASHBORD}`);
+        } else if (storedToken && role === 'admin') {
             navigate(`${ADMIN}/${DASHBORD}`);
+        } else if (storedToken && role === 'user') {
+            navigate(`${USER}/${DASHBORD}`);
+        } else if (storedToken && role === 'staff') {
+            navigate(`${STAFF}/${DASHBORD}`);
         }
+
     }, [navigate]);
 
     const onSubmit = async (data) => {
@@ -47,7 +55,15 @@ const Login = () => {
                 duration: 3000,
                 isClosable: true,
             });
-            navigate(`${ADMIN}/${DASHBORD}`);
+            if (res.data.token && res.data.role === 'super_admin') {
+                navigate(`${SUPER_ADMIN}/${DASHBORD}`);
+            } else if (res.data.token && res.data.role === 'admin') {
+                navigate(`${ADMIN}/${DASHBORD}`);
+            } else if (res.data.token && res.data.role === 'user') {
+                navigate(`${USER}/${DASHBORD}`);
+            } else if (res.data.token && res.data.role === 'staff') {
+                navigate(`${STAFF}/${DASHBORD}`);
+            }
         } catch (err) {
             const errorMessage =
                 err?.response?.data?.message || err.message || 'Something went wrong';

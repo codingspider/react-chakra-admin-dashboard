@@ -10,20 +10,17 @@ import {
   SimpleGrid,
   Stack,
   Heading,
-  useToast,
-  Image
+  useToast
 } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
 import { useForm } from "react-hook-form";
 import api from '../../axios';
 
-const MasterSetting = () => {
+const BusinessSetting = () => {
     const { t } = useTranslation();
-    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const toast = useToast(); 
-    const [logo, setLogo] = useState(null);
-    const [favicon, setFavicon] = useState(null);
 
     const onSubmit = async (data) => {
             setIsSubmitting(true);
@@ -83,19 +80,24 @@ const MasterSetting = () => {
       api.get('superadmin/get/settings')
         .then(response => {
           const inputArray = response.data.data;
+          console.log(inputArray)
+          // Convert array of {key, value} to object {key: value}
+          const formValues = inputArray.reduce((acc, item) => {
+            acc[item.key] = item.value;
+            return acc;
+          }, {});
 
-          if (inputArray) {
-            Object.entries(inputArray).forEach(([key, value]) => {
-              setValue(key, value);
-            });
-
-            setLogo(inputArray.app_logo);
-            setFavicon(inputArray.fav_icon);
-          }
-
+          reset(formValues);
         })
         .catch(error => {
           console.error('Error fetching settings:', error);
+          toast({
+                title: 'Login failed',
+                description: error.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
         });
     }, [reset]);
 
@@ -171,13 +173,11 @@ const MasterSetting = () => {
             <FormControl>
               <FormLabel>{t('app_logo')}</FormLabel>
               <Input type='file' name="app_logo" placeholder={t('app_logo')} {...register("app_logo")} />
-              <Image boxSize='100px' mt={2} src={logo} alt='logo' />
             </FormControl>
 
             <FormControl>
               <FormLabel>{t('fav_icon')}</FormLabel>
               <Input type="file" name="fav_icon" placeholder={t('fav_icon')} {...register("fav_icon")} />
-              <Image boxSize='100px' mt={2} src={favicon} alt='favicon' />
             </FormControl>
 
             
@@ -185,7 +185,7 @@ const MasterSetting = () => {
 
           <Stack direction="row" justify="flex-end" mt={8}>
             <Button isLoading={isSubmitting}
-                                loadingText="Saving Data..."
+                                loadingText="Saving Data..,"
                                  type='submit' 
                                  colorScheme="blue">{t('save')}</Button>
           </Stack>
@@ -198,4 +198,4 @@ const MasterSetting = () => {
   )
 }
 
-export default MasterSetting
+export default BusinessSetting

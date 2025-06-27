@@ -16,10 +16,11 @@ import {BsGearFill} from 'react-icons/bs';
 import {FiMenu, FiSearch} from 'react-icons/fi';
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {Link as ChakraLink} from '@chakra-ui/react'
-import {DASHBORD, MASTER_SETTING, PROFILE} from "../router";
+import {BUSINESS_SETTING, DASHBORD, MASTER_SETTING, PLAN_ADD, PLAN_LIST, PROFILE} from "../router";
 import { CiLogout } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authService';
+import { useTranslation } from 'react-i18next';
 
 const NavItem = ({
     icon,
@@ -27,6 +28,7 @@ const NavItem = ({
     ...rest
 }) => {
     const color = useColorModeValue("gray.600", "gray.300");
+    
     return (
         <Flex
             align="center"
@@ -64,6 +66,8 @@ const NavItem = ({
 const Sidebar = (props) => {
     const integrations = useDisclosure();
     const navigate = useNavigate();
+    const role = localStorage.getItem('role');
+    const { t } = useTranslation();
 
     const handleLogout = async () => {
     await logoutUser(navigate);
@@ -109,20 +113,42 @@ const Sidebar = (props) => {
                 color="teal.600"
                 aria-label="Main Navigation">
 
-                {/* super admin routes  */}
+                
                 <ChakraLink as={ReactRouterLink} to={DASHBORD}>
                     <NavItem icon={MdHome}>
-                        Home
-                    </NavItem>
-                </ChakraLink>
-                
-                <ChakraLink as={ReactRouterLink} to={MASTER_SETTING}>
-                    <NavItem icon={BsGearFill}>
-                        Master Setting
+                        {t('home')}
                     </NavItem>
                 </ChakraLink>
 
-                {/* super admin routes  */}
+                {/* super admin routes */}
+                {role === 'super_admin' && (
+                <>
+                    <ChakraLink as={ReactRouterLink} to={MASTER_SETTING}>
+                    <NavItem icon={BsGearFill}>
+                        {t('master_setting')}
+                    </NavItem>
+                    </ChakraLink>
+
+                    <ChakraLink as={ReactRouterLink} to={PLAN_LIST}>
+                    <NavItem icon={BsGearFill}>
+                        {t('plan')}
+                    </NavItem>
+                    </ChakraLink>
+                </>
+                )}
+                {/* super admin routes */}
+                
+                
+                {/* admin routes  */}
+                {role === 'admin' && (
+                <ChakraLink as={ReactRouterLink} to={BUSINESS_SETTING}>
+                    <NavItem icon={BsGearFill}>
+                        Business Setting
+                    </NavItem>
+                </ChakraLink>
+
+                )}
+                {/* admin routes  */}
 
                 <ChakraLink as={ReactRouterLink} to={PROFILE}>
                     <NavItem icon={FaRss}>
