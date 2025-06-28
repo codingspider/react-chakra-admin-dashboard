@@ -47,7 +47,7 @@ const Plan = () => {
                     duration: 3000,
                     isClosable: true,
                 });
-              navigate(`${SUPER_ADMIN}/${PLAN_LIST}`);
+              navigate(`${PLAN_LIST}`);
 
             } catch (err) {
                 const errorMessage = err?.response?.data?.message || err.message || 'Something went wrong';
