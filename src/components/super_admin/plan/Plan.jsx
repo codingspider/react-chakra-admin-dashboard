@@ -12,18 +12,23 @@ import {
   Heading,
   useToast,
   Image,
-  Select
+  Select,
+  Flex
 } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
 import { useForm } from "react-hook-form";
 import api from '../../../axios';
+import { useNavigate } from 'react-router-dom';
+import { PLAN_LIST, SUPER_ADMIN } from '../../../router';
+import { Link as ChakraLink } from '@chakra-ui/react'
+import {Link as ReactRouterLink} from 'react-router-dom';
 
 const Plan = () => {
     const { t } = useTranslation();
     const { register, handleSubmit, reset } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const toast = useToast(); 
-
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
             setIsSubmitting(true);
@@ -42,6 +47,7 @@ const Plan = () => {
                     duration: 3000,
                     isClosable: true,
                 });
+              navigate(`${SUPER_ADMIN}/${PLAN_LIST}`);
 
             } catch (err) {
                 const errorMessage = err?.response?.data?.message || err.message || 'Something went wrong';
@@ -62,9 +68,24 @@ const Plan = () => {
     <Box p={4}>
       <Card  mx="auto" boxShadow="lg">
         <CardBody>
-          <Heading size="md" mb={6}>
-            {t('add_plan')}
-          </Heading>
+          <Flex align="center" justify="space-between" mb={6}>
+                <Heading size="md">
+                  {t('add_plan')}
+                </Heading>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to={PLAN_LIST}
+                  colorScheme="teal"
+                  px={4}
+                  py={2}
+                  rounded="md"
+                  bg="teal.500"
+                  color="white"
+                  _hover={{ bg: 'teal.600', textDecoration: 'none' }}
+                >
+                  {t('back')}
+                </ChakraLink>
+              </Flex>
 
           <form onSubmit={handleSubmit(onSubmit)}>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>

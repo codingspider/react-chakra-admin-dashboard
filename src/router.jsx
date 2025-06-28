@@ -31,8 +31,8 @@ export const PROFILE = 'profile';
 export const MASTER_SETTING = 'master/setting';
 export const BUSINESS_SETTING = 'business/setting';
 
-export const PLAN_ADD = 'plan/add';
-export const PLAN_LIST = 'plan/list';
+export const PLAN_ADD = '/super/admin/plan/add';
+export const PLAN_LIST = '/super/admin/plan/list';
 
 export const router = createBrowserRouter([
   {

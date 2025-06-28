@@ -22,11 +22,14 @@ import {
   TableCaption,
   TableContainer,
   Flex,
-  Text
+  Text,
 } from "@chakra-ui/react";
+import { Link as ChakraLink } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next';
 import api from '../../../axios';
 import { debounce } from 'lodash';
+import {Link as ReactRouterLink} from 'react-router-dom'
+import { PLAN_ADD } from '../../../router';
 
 const List = () => {
     const { t } = useTranslation();
@@ -37,9 +40,8 @@ const List = () => {
 
     const fetchData = async (pageNum = 1, searchTerm = '') => {
         const res = await api.get('superadmin/plan/list', {
-        params: { page: pageNum, search: searchTerm }
+          params: { page: pageNum, search: searchTerm }
         });
-        console.log(res.data.data);
         setData(res.data.data.data);
         setMeta(res.data.data);
     };
@@ -63,9 +65,24 @@ const List = () => {
         <Box p={4}>
           <Card  mx="auto" boxShadow="lg">
             <CardBody>
-              <Heading size="md" mb={6}>
-                {t('plan')}
-              </Heading>
+              <Flex align="center" justify="space-between" mb={6}>
+                <Heading size="md">
+                  {t('plan')}
+                </Heading>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to={PLAN_ADD}
+                  colorScheme="teal"
+                  px={4}
+                  py={2}
+                  rounded="md"
+                  bg="teal.500"
+                  color="white"
+                  _hover={{ bg: 'teal.600', textDecoration: 'none' }}
+                >
+                  {t('create')}
+                </ChakraLink>
+              </Flex>
 
               <TableContainer>
                 <Input
