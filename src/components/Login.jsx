@@ -30,7 +30,7 @@ const Login = () => {
     useEffect(() => {
         const storedToken = localStorage.getItem('auth_token');
         const role = localStorage.getItem('role');
-        if (storedToken && role === 'super_admin') {
+        if (storedToken && role === 'superadmin') {
             navigate(`${SUPER_ADMIN}/${DASHBORD}`);
         } else if (storedToken && role === 'admin') {
             navigate(`${ADMIN}/${DASHBORD}`);
@@ -55,7 +55,7 @@ const Login = () => {
                 duration: 3000,
                 isClosable: true,
             });
-            if (res.data.token && res.data.role === 'super_admin') {
+            if (res.data.token && res.data.role === 'superadmin') {
                 navigate(`${SUPER_ADMIN}/${DASHBORD}`);
             } else if (res.data.token && res.data.role === 'admin') {
                 navigate(`${ADMIN}/${DASHBORD}`);

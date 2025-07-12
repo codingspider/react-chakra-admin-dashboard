@@ -14,6 +14,9 @@ import MasterSetting from "./components/admin/MasterSetting";
 import BusinessSetting from "./components/admin/BusinessSetting";
 import Plan from "./components/super_admin/plan/Plan";
 import Plan_List from "./components/super_admin/plan/List";
+import OwnerList from "./components/super_admin/owner/List";
+import OwnerAdd from "./components/super_admin/owner/Add";
+import OwnerEdit from "./components/super_admin/owner/Edit";
 
 export const ROOT = '/';
 export const LOGIN = '/login';
@@ -33,6 +36,10 @@ export const BUSINESS_SETTING = 'business/setting';
 
 export const PLAN_ADD = '/super/admin/plan/add';
 export const PLAN_LIST = '/super/admin/plan/list';
+
+export const OWNER_LIST = '/super/admin/owner/list';
+export const OWNER_ADD = '/super/admin/owner/create';
+export const OWNER_EDIT = '/super/admin/owner/edit/:id';
 
 export const router = createBrowserRouter([
   {
@@ -60,10 +67,13 @@ export const router = createBrowserRouter([
     element: <MasterLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: DASHBORD, element: <ProtectedRoute role="super_admin"><Dashboard /></ProtectedRoute> },
-      { path: MASTER_SETTING, element: <ProtectedRoute role="super_admin"><MasterSetting /></ProtectedRoute> },
-      { path: PLAN_ADD, element: <ProtectedRoute role="super_admin"><Plan /></ProtectedRoute> },
-      { path: PLAN_LIST, element: <ProtectedRoute role="super_admin"><Plan_List /></ProtectedRoute> },
+      { path: DASHBORD, element: <ProtectedRoute role="superadmin"><Dashboard /></ProtectedRoute> },
+      { path: MASTER_SETTING, element: <ProtectedRoute role="superadmin"><MasterSetting /></ProtectedRoute> },
+      { path: PLAN_ADD, element: <ProtectedRoute role="superadmin"><Plan /></ProtectedRoute> },
+      { path: PLAN_LIST, element: <ProtectedRoute role="superadmin"><Plan_List /></ProtectedRoute> },
+      { path: OWNER_LIST, element: <ProtectedRoute role="superadmin"><OwnerList /></ProtectedRoute> },
+      { path: OWNER_ADD, element: <ProtectedRoute role="superadmin"><OwnerAdd /></ProtectedRoute> },
+      { path: OWNER_EDIT, element: <ProtectedRoute role="superadmin"><OwnerEdit /></ProtectedRoute> },
     ],
   },
   {

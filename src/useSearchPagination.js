@@ -10,7 +10,6 @@ export default function useSearchPagination(fetchDataFn, initialParams = {}) {
   const getData = async () => {
 
     const res = await fetchDataFn({ page, search, ...initialParams });
-    console.log(res.data.total);
     setData(res.data.data);
     setTotal(res.data.total);
   };

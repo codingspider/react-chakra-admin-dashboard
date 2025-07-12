@@ -8,7 +8,7 @@ import {
     useColorModeValue
 } from "@chakra-ui/react";
 import {MdHome} from 'react-icons/md';
-import {FaRss, FaClipboardCheck, FaBell, FaGift} from 'react-icons/fa';
+import {FaRss, FaClipboardCheck, FaBell, FaList, FaMoneyBillWave } from 'react-icons/fa';
 import {HiCollection, HiCode} from 'react-icons/hi';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {AiFillGift} from 'react-icons/ai';
@@ -16,7 +16,7 @@ import {BsGearFill} from 'react-icons/bs';
 import {FiMenu, FiSearch} from 'react-icons/fi';
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {Link as ChakraLink} from '@chakra-ui/react'
-import {BUSINESS_SETTING, DASHBORD, MASTER_SETTING, PLAN_ADD, PLAN_LIST, PROFILE} from "../router";
+import {BUSINESS_SETTING, DASHBORD, MASTER_SETTING, OWNER_LIST, PLAN_ADD, PLAN_LIST, PROFILE} from "../router";
 import { CiLogout } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authService';
@@ -121,7 +121,7 @@ const Sidebar = (props) => {
                 </ChakraLink>
 
                 {/* super admin routes */}
-                {role === 'super_admin' && (
+                {role === 'superadmin' && (
                 <>
                     <ChakraLink as={ReactRouterLink} to={MASTER_SETTING}>
                     <NavItem icon={BsGearFill}>
@@ -130,8 +130,14 @@ const Sidebar = (props) => {
                     </ChakraLink>
 
                     <ChakraLink as={ReactRouterLink} to={PLAN_LIST}>
-                    <NavItem icon={BsGearFill}>
+                    <NavItem icon={FaMoneyBillWave}>
                         {t('plan')}
+                    </NavItem>
+                    </ChakraLink>
+                    
+                    <ChakraLink as={ReactRouterLink} to={OWNER_LIST}>
+                    <NavItem icon={FaList}>
+                        {t('owner')}
                     </NavItem>
                     </ChakraLink>
                 </>
